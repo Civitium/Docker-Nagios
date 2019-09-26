@@ -79,8 +79,12 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         snmp-mibs-downloader                \
         unzip                               \
         python                              \
+        libclass-dbi-pg-perl                \
+        libdbd-pgsql                        \
+        ruby
                                                 && \
-    apt-get clean && rm -Rf /var/lib/apt/lists/*
+    apt-get clean && rm -Rf /var/lib/apt/lists/* && \
+    gem install docker-api
 
 RUN ( egrep -i "^${NAGIOS_GROUP}"    /etc/group || groupadd $NAGIOS_GROUP    )                         && \
     ( egrep -i "^${NAGIOS_CMDGROUP}" /etc/group || groupadd $NAGIOS_CMDGROUP )
